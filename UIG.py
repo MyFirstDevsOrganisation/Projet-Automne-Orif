@@ -9,14 +9,17 @@ fenetre.maxsize(800,600)
 fenetre.minsize(400,400)
 
 fenetre.config(bg = "#87CEEB")
-def callback():
-    if askyesno('Titre 1', 'Etes-vous sûr de vouloir quitter ?'):
-        fenetre.quit
-    else:
-        return
-demarrer = Button (fenetre, text = "Start")
+def quitter():
+    reponse = askokcancel("quitter", "Etes-vous sûr de vouloir quitter ?")
+    print(reponse)
+
+    if reponse:
+        fenetre.destroy()
+demarrer = Button (fenetre, text = "Start", height=5, width=10)
+
 demarrer.pack()
-quitter = Button(fenetre, text='Quitter', command=callable)
+quitter = Button(fenetre, text='Quitter', command=quitter, height=5, width=10)
+
 quitter.pack()
 
 
