@@ -8,7 +8,7 @@ fenetre.title("Révision des verbes en Anglais")
 fenetre.maxsize(800,600)
 fenetre.minsize(400,400)
 
-fenetre.config(bg = "#87CEEB")
+
 def quitter():
     reponse = askokcancel("quitter", "Etes-vous sûr de vouloir quitter ?")
     print(reponse)
@@ -21,7 +21,5 @@ demarrer.pack()
 quitter = Button(fenetre, text='Quitter', command=quitter, height=5, width=10)
 
 quitter.pack()
-
-
 
 fenetre.mainloop()
