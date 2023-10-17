@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import *
+from PageAccueil import PageAccueil
 
 
-class App(tk.Tk):
+class Application(tk.Tk):
    def __init__(self):
         super().__init__()
 
@@ -10,7 +11,9 @@ class App(tk.Tk):
         self.maxsize(800,600)
         self.minsize(400,400)
         self.config(bg = "#87CEEB")
+
+        self.page_accueil = PageAccueil(self)
        
 
-master = App()
+master = Application()
 master.mainloop()
