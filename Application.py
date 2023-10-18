@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from PageAccueil import PageAccueil
-from PageJeu import PageJeu
-
+from tkinter import messagebox
 
 class Application(tk.Tk):
    def __init__(self, title, width, height):
@@ -18,4 +17,3 @@ class Application(tk.Tk):
         self.page_jeu = PageJeu(self)
 
         self.page_accueil.pack()
-       
