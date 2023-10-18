@@ -23,7 +23,8 @@ class PageAccueil(tk.Frame):
 
     def afficherPageJeu(self):
         self.pack_forget()
-        self.page_jeu = PageJeu()
+        self.page_jeu = PageJeu.PageJeu(self.master)
+        self.page_jeu.pack()
 
 
 

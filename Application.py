@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from PageAccueil import PageAccueil
+from PageJeu import PageJeu
 
 
 class Application(tk.Tk):
@@ -14,6 +15,7 @@ class Application(tk.Tk):
         self.config(bg = "#87CEEB")
 
         self.page_accueil = PageAccueil(self)
+        self.page_jeu = PageJeu(self)
 
         self.page_accueil.pack()
        
