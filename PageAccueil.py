@@ -11,14 +11,14 @@ class PageAccueil(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
-        explicationLabel = tk.Label(self, text="Choisissez le type de verbe que vous voulez reviser", font=("Helvetica", 15), bg='#87CEEB')
+        explicationLabel = tk.Label(self, text="Choisissez le type de verbe que vous voulez reviser", font=("Helvetica", 15))
         explicationLabel.grid(row=5, column=1, columnspan=2, sticky=tk.NSEW, pady=30)
 
         demarrerBoutton = tk.Button(self, text = "Start", height=5, width=10, command=self.afficherPageJeu)
         demarrerBoutton.grid(row=9, column=1, columnspan=2)
 
         quitterBoutton = tk.Button(self, text= "Quitter", height=5, width=10, command=self.confirmationQuitter)
-        quitterBoutton.grid(row=12, column=1, columnspan=2)
+        quitterBoutton.grid(row=12, column=1, columnspan=3)
 
     def afficherPageJeu(self):
         self.pack_forget()
