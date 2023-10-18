@@ -22,10 +22,8 @@ class PageAccueil(tk.Frame):
 
     def afficherPageJeu(self):
         self.pack_forget()
-        self.page_jeu = PageJeu.PageJeu(self.master)
+        self.page_jeu = PageJeu(self.master)
         self.page_jeu.pack()
-
-
 
     def confirmationQuitter(self):
         reponse = messagebox.askyesno('Quitter', 'Voulez-vous vraiment quitter ?')
