@@ -15,20 +15,20 @@ class PageJeu(tk.Frame):
         infinitifInstruction = tk.Label(self, text="Infinitif", font=("Helvetica", 15), bg='#87CEEB')
         infinitifInstruction.grid(row=5, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        champinfinitif = tk.Entry(self, width=15, font=("Helvetica", 15))
-        champinfinitif.grid(row=10, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        champInfinitif = tk.Entry(self, width=15, font=("Helvetica", 15))
+        champInfinitif.grid(row=10, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
         preteriteInstruction = tk.Label(self, text="Prétérite", font=("Helvetica", 15), bg='#87CEEB')  
         preteriteInstruction.grid(row=15, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        champpreterite = tk.Entry(self, width=15, font=("Helvetica", 15))
-        champpreterite.grid(row=20, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        champPreterite = tk.Entry(self, width=15, font=("Helvetica", 15))
+        champPreterite.grid(row=20, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
         partPassInstruction = tk.Label(self, text="Participe passé", font=("Helvetica", 15), bg='#87CEEB')
         partPassInstruction.grid(row=25, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        champpartPass = tk.Entry(self, width=15, font=("Helvetica", 15))
-        champpartPass.grid(row=30, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        champPartPass = tk.Entry(self, width=15, font=("Helvetica", 15))
+        champPartPass.grid(row=30, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
         boutonValider = tk.Button(self, width=15, text="Valider", font=("Helvetica", 15))
         boutonValider.grid(row=35, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
