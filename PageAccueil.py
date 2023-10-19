@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 from PageJeu import PageJeu
-#from Application import Application
 
 class PageAccueil(tk.Frame):
     def __init__(self, parent):
