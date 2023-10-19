@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import *
 from PageAccueil import PageAccueil
 
-
 class Application(tk.Tk):
    def __init__(self, title, width, height):
         super().__init__()
