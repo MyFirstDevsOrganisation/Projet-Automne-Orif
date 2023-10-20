@@ -7,7 +7,7 @@ from tkinter import messagebox
 
 
 class Application(tk.Tk):
-   def __init__(self, title, width, height, icon_url):
+   def __init__(self, title, width, height):
         super().__init__()
 
         # Configuration de la fenêtre
