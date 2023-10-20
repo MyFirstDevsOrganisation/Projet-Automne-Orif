@@ -4,8 +4,10 @@ from PageAccueil import PageAccueil
 from PageJeu import PageJeu
 from tkinter import messagebox
 
+
+
 class Application(tk.Tk):
-   def __init__(self, title, width, height):
+   def __init__(self, title, width, height, icon_url):
         super().__init__()
 
         # Configuration de la fenêtre
@@ -14,6 +16,7 @@ class Application(tk.Tk):
         self.minsize(width, height)
         self.config(bg = "#87CEEB")
         self.page_accueil = PageAccueil(self)
+
 
         self.page_accueil.pack()
         
