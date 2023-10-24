@@ -1,12 +1,16 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-
+import requests
 class PageJeu(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.createWidgets()
         self.config(bg="#87CEEB")
+        self.infinitif = ""
+        self.preterit = ""
+        self.partPass = ""
+        self.apiUrl = "http://192.168.7.98:3000/api/recuperer-verbe-aleatoirement"
 
     def createWidgets(self):
         explicationLabel = tk.Label(self, text="Saisissez les temps manquants", font=("Helvetica", 15), bg='#87CEEB')
@@ -40,4 +44,22 @@ class PageJeu(tk.Frame):
         reponse = messagebox.askyesno('Quitter', 'Voulez-vous vraiment quitter ?')
         if reponse:
             self.master.quit()
+
+
+    def recupererVerbe(self):
+        headers = {
+            'x-api-key': '-jIPpeeKh+6nvRF',  
+            'Content-Type': 'application/json',  
+        }
+        reponse = requests.get(self.apiUrl,headers=headers)
+        reponseJson = reponse.json()
+        if 'data' in reponseJson and len(reponseJson['data']) > 0:
+            verbe = reponseJson['data'][0]
+            self.infinitif = verbe.get('infinitif', '')
+            self.preterit = verbe.get('preterit', '')
+            self.partPass = verbe.get('participe_passe', '')
+     
+  
+
+
     
