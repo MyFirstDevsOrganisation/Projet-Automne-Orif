@@ -6,13 +6,14 @@ import requests
 class PageJeu(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
+        self.parent = parent
         self.createWidgets()
         self.config(bg="#87CEEB")
         self.apiUrl = "http://192.168.7.98:3000/api/recuperer-verbe-aleatoirement"
         self.infinitif = ""
         self.preterit = ""
         self.partPass = ""
-
+        
     def createWidgets(self):
         explicationLabel = tk.Label(self, text="Saisissez les temps manquants", font=("Helvetica", 15), bg='#87CEEB')
         explicationLabel.grid(row=0, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
@@ -67,8 +68,5 @@ class PageJeu(tk.Frame):
         reponsePartPass = champPartPass.get()
         print(self.infinitif, self.preterit, self.partPass)
         if reponseInfinitif == self.infinitif and reponsePreterite == self.preterit and reponsePartPass == self.partPass:
-            
-        
-
-        
-      
+            messagebox.showinfo("Bravo", "Bonne réponse")
+            self.parent.config(bg="green")  
