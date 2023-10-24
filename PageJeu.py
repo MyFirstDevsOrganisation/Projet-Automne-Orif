@@ -45,19 +45,22 @@ class PageJeu(tk.Frame):
         if reponse:
             self.master.quit()
 
-
+    # Méthode pour récupérer un verbe aléatoirement
     def recupererVerbe(self):
         headers = {
-            'x-api-key': '-jIPpeeKh+6nvRF',  
-            'Content-Type': 'application/json',  
+            'x-api-key': '-jIPpeeKh+6nvRF',  # Clé de l'API
+            'Content-Type': 'application/json',  # Type de contenu
         }
+        # Appel de l'API
         reponse = requests.get(self.apiUrl,headers=headers)
+        # Récupération du JSON
         reponseJson = reponse.json()
-        if 'data' in reponseJson and len(reponseJson['data']) > 0:
-            verbe = reponseJson['data'][0]
-            self.infinitif = verbe.get('infinitif', '')
-            self.preterit = verbe.get('preterit', '')
-            self.partPass = verbe.get('participe_passe', '')
+        # Si le JSON contient des données
+        if 'data' in reponseJson and len(reponseJson['data']) > 0: # Si le JSON contient des données
+            verbe = reponseJson['data'][0]# Récupération du premier verbe
+            self.infinitif = verbe.get('infinitif', '')# Récupération de l'infinitif
+            self.preterit = verbe.get('preterit', '')# Récupération du prétérit
+            self.partPass = verbe.get('participe_passe', '')# Récupération du participe passé
      
   
 
