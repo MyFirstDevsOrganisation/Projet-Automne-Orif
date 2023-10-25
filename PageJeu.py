@@ -34,16 +34,16 @@ class PageJeu(tk.Frame):
         preteriteInstruction = tk.Label(self, text="Prétérite", font=("Helvetica", 15), bg=self.colorBg)  
         preteriteInstruction.grid(row=15, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        champPreterite = tk.Entry(self, width=15, font=("Helvetica", 15))
-        champPreterite.grid(row=20, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        self.champPreterite = tk.Entry(self, width=15, font=("Helvetica", 15))
+        self.champPreterite.grid(row=20, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
         partPassInstruction = tk.Label(self, text="Participe passé", font=("Helvetica", 15), bg=self.colorBg    )
         partPassInstruction.grid(row=25, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        champPartPass = tk.Entry(self, width=15, font=("Helvetica", 15))
-        champPartPass.grid(row=30, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        self.champPartPass = tk.Entry(self, width=15, font=("Helvetica", 15))
+        self.champPartPass.grid(row=30, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        boutonValider = tk.Button(self, width=15, text="Valider", font=("Helvetica", 15), command=lambda: self.verifierReponse(self.champInfinitif, champPreterite, champPartPass))
+        boutonValider = tk.Button(self, width=15, text="Valider", font=("Helvetica", 15), command=lambda: self.verifierReponse(self.champInfinitif, self.champPreterite, self.champPartPass))
         boutonValider.grid(row=35, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
         quitterBoutton = tk.Button(self, text= "Quitter", width=15, command=self.confirmationQuitter)
@@ -72,9 +72,6 @@ class PageJeu(tk.Frame):
         for widget in self.winfo_children():
             if isinstance(widget, tk.Entry):
                 widget.delete(0, END)
-        self.champInfinitif.insert(0, self.infinitif)
-        self.champPartPass.insert(0, self.partPass)
-        self.champPreterite.insert(0, self.preterit)
 
     def verifierReponse(self, champInfinitif, champPreterite, champPartPass):
         reponseInfinitif = champInfinitif.get()
