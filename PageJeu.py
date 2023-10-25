@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import requests
+import random
 
 class PageJeu(tk.Frame):
     def __init__(self, parent):
@@ -16,8 +17,9 @@ class PageJeu(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
-       
-       
+    
+        verbeRandom = random.choice([self.infinitif, self.preterit, self.partPass])
+
         explicationLabel = tk.Label(self, text="Saisissez les temps manquants", font=("Helvetica", 15), bg='#87CEEB')
         explicationLabel.grid(row=0, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
@@ -26,7 +28,7 @@ class PageJeu(tk.Frame):
         
         champInfinitif = tk.Entry(self, width=15, font=("Helvetica", 15))
         champInfinitif.grid(row=10, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
-        champInfinitif.insert(0, self.infinitif)
+
         
         preteriteInstruction = tk.Label(self, text="Prétérite", font=("Helvetica", 15), bg='#87CEEB')  
         preteriteInstruction.grid(row=15, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
@@ -45,7 +47,15 @@ class PageJeu(tk.Frame):
         
         quitterBoutton = tk.Button(self, text= "Quitter", width=15, command=self.confirmationQuitter)
         quitterBoutton.grid(row=40, column=1, columnspan=2, sticky=tk.NSEW, pady=5)
- 
+
+        if verbeRandom == self.infinitif:
+            champInfinitif.insert(0, self.infinitif)
+        elif verbeRandom == self.preterit:
+            champPreterite.insert(0, self.preterit)
+        elif verbeRandom == self.partPass:
+            champPartPass.insert(0, self.partPass)
+            
+
     def confirmationQuitter(self):
         reponse = messagebox.askyesno('Quitter', 'Voulez-vous vraiment quitter ?')
         if reponse:
@@ -72,9 +82,9 @@ class PageJeu(tk.Frame):
 
     def verifierReponse(self, champInfinitif, champPreterite, champPartPass):
 
-        reponseInfinitif = champInfinitif.get()
-        reponsePreterite = champPreterite.get()
-        reponsePartPass = champPartPass.get()
+        reponseInfinitif = str.lower(champInfinitif.get())
+        reponsePreterite = str.lower(champPreterite.get())
+        reponsePartPass = str.lower(champPartPass.get())
         print(self.infinitif, self.preterit, self.partPass)
         if reponseInfinitif == self.infinitif and reponsePreterite == self.preterit and reponsePartPass == self.partPass:
             messagebox.showinfo("Bravo", "Bonne réponse")
