@@ -2,17 +2,22 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import requests
+
 class PageJeu(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.createWidgets()
+        self.parent = parent
         self.config(bg="#87CEEB")
+        self.apiUrl = "http://192.168.2.15:3000/api/recuperer-verbe-aleatoirement"
         self.infinitif = ""
         self.preterit = ""
         self.partPass = ""
-        self.apiUrl = "http://192.168.7.98:3000/api/recuperer-verbe-aleatoirement"
+        self.recupererVerbe()
+        self.createWidgets()
 
     def createWidgets(self):
+       
+       
         explicationLabel = tk.Label(self, text="Saisissez les temps manquants", font=("Helvetica", 15), bg='#87CEEB')
         explicationLabel.grid(row=0, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
@@ -21,6 +26,7 @@ class PageJeu(tk.Frame):
         
         champInfinitif = tk.Entry(self, width=15, font=("Helvetica", 15))
         champInfinitif.grid(row=10, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        champInfinitif.insert(0, self.infinitif)
         
         preteriteInstruction = tk.Label(self, text="Prétérite", font=("Helvetica", 15), bg='#87CEEB')  
         preteriteInstruction.grid(row=15, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
@@ -34,12 +40,12 @@ class PageJeu(tk.Frame):
         champPartPass = tk.Entry(self, width=15, font=("Helvetica", 15))
         champPartPass.grid(row=30, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        boutonValider = tk.Button(self, width=15, text="Valider", font=("Helvetica", 15))
+        boutonValider = tk.Button(self, width=15, text="Valider", font=("Helvetica", 15), command=lambda: self.verifierReponse(champInfinitif, champPreterite, champPartPass))
         boutonValider.grid(row=35, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
         quitterBoutton = tk.Button(self, text= "Quitter", width=15, command=self.confirmationQuitter)
         quitterBoutton.grid(row=40, column=1, columnspan=2, sticky=tk.NSEW, pady=5)
-        
+ 
     def confirmationQuitter(self):
         reponse = messagebox.askyesno('Quitter', 'Voulez-vous vraiment quitter ?')
         if reponse:
@@ -64,5 +70,12 @@ class PageJeu(tk.Frame):
      
   
 
+    def verifierReponse(self, champInfinitif, champPreterite, champPartPass):
 
-    
+        reponseInfinitif = champInfinitif.get()
+        reponsePreterite = champPreterite.get()
+        reponsePartPass = champPartPass.get()
+        print(self.infinitif, self.preterit, self.partPass)
+        if reponseInfinitif == self.infinitif and reponsePreterite == self.preterit and reponsePartPass == self.partPass:
+            messagebox.showinfo("Bravo", "Bonne réponse")
+            self.parent.config(bg="green")  
