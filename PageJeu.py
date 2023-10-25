@@ -7,14 +7,17 @@ class PageJeu(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
-        self.createWidgets()
         self.config(bg="#87CEEB")
-        self.apiUrl = "http://192.168.7.98:3000/api/recuperer-verbe-aleatoirement"
+        self.apiUrl = "http://192.168.2.15:3000/api/recuperer-verbe-aleatoirement"
         self.infinitif = ""
         self.preterit = ""
         self.partPass = ""
-        
+        self.recupererVerbe()
+        self.createWidgets()
+
     def createWidgets(self):
+       
+       
         explicationLabel = tk.Label(self, text="Saisissez les temps manquants", font=("Helvetica", 15), bg='#87CEEB')
         explicationLabel.grid(row=0, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
@@ -23,6 +26,7 @@ class PageJeu(tk.Frame):
         
         champInfinitif = tk.Entry(self, width=15, font=("Helvetica", 15))
         champInfinitif.grid(row=10, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        champInfinitif.insert(0, self.infinitif)
         
         preteriteInstruction = tk.Label(self, text="Prétérite", font=("Helvetica", 15), bg='#87CEEB')  
         preteriteInstruction.grid(row=15, column=1, columnspan=2, sticky=tk.NSEW, pady=20)

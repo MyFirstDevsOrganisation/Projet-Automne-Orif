@@ -24,7 +24,6 @@ class PageAccueil(tk.Frame):
     def afficherPageJeu(self):
         self.pack_forget()
         self.page_jeu = PageJeu(self.master)
-        self.page_jeu.recupererVerbe()
         self.page_jeu.pack()
 
     def confirmationQuitter(self):
