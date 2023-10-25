@@ -2,7 +2,6 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-import time
 import requests
 import random
 
@@ -16,9 +15,9 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
         self.infinitif = "" # Définition de l'attribut infinitif
         self.preterit = "" # Définition de l'attribut prétérit
         self.partPass = ""  # Définition de l'attribut participe passé
-        self.champInfinitif = ""
-        self.champPreterite = ""
-        self.champPartPass = ""
+        self.champInfinitif = ""    # Définition de l'attribut champInfinitif
+        self.champPreterite = ""   # Définition de l'attribut champPreterite
+        self.champPartPass = ""   # Définition de l'attribut champPartPass
         self.recupererVerbe() # Appel de la méthode récupérerVerbe
         self.createWidgets() # Appel de la méthode createWidgets
         self.randomVerbe() # Appel de la méthode randomVerbe
@@ -41,7 +40,7 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
         self.champPreterite = tk.Entry(self, width=15, font=("Helvetica", 15))
         self.champPreterite.grid(row=20, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        partPassInstruction = tk.Label(self, text="Participe passé", font=("Helvetica", 15), bg=self.colorBg    )
+        partPassInstruction = tk.Label(self, text="Participe passé", font=("Helvetica", 15), bg=self.colorBg)
         partPassInstruction.grid(row=25, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
         self.champPartPass = tk.Entry(self, width=15, font=("Helvetica", 15))
@@ -61,20 +60,28 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
 
     # Méthode pour récupérer un verbe aléatoirement
     def recupererVerbe(self):
+        # Définition des headers
         headers = {
             'x-api-key': '-jIPpeeKh+6nvRF',  # Clé de l'API
             'Content-Type': 'application/json',  # Type de contenu
         }
+        
         # Appel de l'API
         reponse = requests.get(self.apiUrl,headers=headers)
+        
         # Récupération du JSON
         reponseJson = reponse.json()
-        if 'data' in reponseJson and len(reponseJson['data']) > 0:
-            verbe = reponseJson['data'][0]
-            self.infinitif = verbe.get('infinitif', '')
-            self.preterit = verbe.get('preterit', '')
-            self.partPass = verbe.get('participe_passe', '')
-
+        
+        # Si la réponse contient des données
+        if 'data' in reponseJson and len(reponseJson['data']) > 0: 
+            verbe = reponseJson['data'][0]  # Récupération du verbe
+            self.infinitif = verbe.get('infinitif', '') # Récupération de l'infinitif
+            self.preterit = verbe.get('preterit', '') # Récupération du prétérit
+            self.partPass = verbe.get('participe_passe', '') # Récupération du participe passé
+        ### DEBUG ###
+        print(self.infinitif, self.preterit, self.partPass)
+        
+    # Méthode pour afficher un verbe aléatoirement
     def randomVerbe(self):
         verbeRandom = random.choice([self.infinitif, self.preterit, self.partPass]) # Choix aléatoire d'un verbe   
         # Si le verbe aléatoire est l'infinitif, on affiche l'infinitif dans le champ correspondant
@@ -88,38 +95,55 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
         # Si le verbe aléatoire est le participe passé, on affiche le participe passé dans le champ correspondant
         elif verbeRandom == self.partPass:
             self.champPartPass.insert(0, self.partPass) # Insertion du participe passé dans le champ correspondant
-
+   
+    # Méthode pour changer le verbe
     def changerVerbe(self):
+        # Appel de la méthode pour récupérer un verbe aléatoirement
         self.recupererVerbe()
+
+        # Suppression du contenu des champs
         for widget in self.winfo_children():
+
             if isinstance(widget, tk.Entry):
                 widget.delete(0, END)  
-                self.randomVerbe()
 
+        self.randomVerbe() # Appel de la méthode pour afficher un verbe aléatoirement
+
+    # Méthode pour vérifier la réponse
     def verifierReponse(self, champInfinitif, champPreterite, champPartPass):
+
         reponseInfinitif = champInfinitif.get()
         reponsePreterite = champPreterite.get()
         reponsePartPass = champPartPass.get()
 
-        print(self.infinitif, self.preterit, self.partPass)
+        # Si la réponse est correcte
         if reponseInfinitif == self.infinitif and reponsePreterite == self.preterit and reponsePartPass == self.partPass:
+            # Changement de la couleur de fond
             self.parent.config(bg="green") 
             self.config(bg="green") 
+            # Changement de la couleur de fond des widgets
             for widget in self.winfo_children():
                 widget.configure(bg="green")
             self.after(500, self.retablirCouleur)
             self.after(500, self.changerVerbe)
+        
+        # Si la réponse est incorrecte
         else:
             self.parent.config(bg="red") 
             self.config(bg="red") 
+        
             for widget in self.winfo_children():
                 widget.configure(bg="red")
             self.after(1000, self.retablirCouleur)
-
+    
+    # Méthode pour rétablir la couleur de fond
     def retablirCouleur(self):
+    
         self.parent.config(bg=self.colorBg)
         self.config(bg=self.colorBg)
+    
         for widget in self.winfo_children():
             widget.configure(bg=self.colorBg)
+    
             if isinstance(widget, tk.Entry):
                 widget.configure(bg="white")
