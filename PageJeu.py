@@ -112,9 +112,12 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
     # Méthode pour vérifier la réponse
     def verifierReponse(self, champInfinitif, champPreterite, champPartPass):
 
-        reponseInfinitif = champInfinitif.get()
-        reponsePreterite = champPreterite.get()
-        reponsePartPass = champPartPass.get()
+        reponseInfinitif = str.lower(champInfinitif.get())
+        reponsePreterite = str.lower(champPreterite.get())
+        reponsePartPass = str.lower(champPartPass.get())
+        reponseInfinitif = reponseInfinitif.replace(" ", "")
+        reponsePreterite = reponsePreterite.replace(" ", "")
+        reponsePartPass = reponsePartPass.replace(" ", "")
 
         # Si la réponse est correcte
         if reponseInfinitif == self.infinitif and reponsePreterite == self.preterit and reponsePartPass == self.partPass:
