@@ -5,22 +5,22 @@ from tkinter import messagebox
 import requests
 import random
 
-class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la classe Frame
-    def __init__(self, parent):# Constructeur de la classe
-        super().__init__(parent) # Appel du constructeur de la classe parente
-        self.parent = parent # Définition de l'attribut parent
+class PageJeu(tk.Frame):            # Création de la classe PageJeu qui hérite de la classe Frame
+    def __init__(self, parent):     # Constructeur de la classe
+        super().__init__(parent)    # Appel du constructeur de la classe parente
+        self.parent = parent        # Définition de l'attribut parent
         self.colorBg = "#87CEEB"
         self.config(bg=self.colorBg) # Configuration de la couleur de fond
         self.apiUrl = "http://192.168.2.15:3000/api/recuperer-verbe-aleatoirement" # Définition de l'URL de l'API
-        self.infinitif = "" # Définition de l'attribut infinitif
-        self.preterit = "" # Définition de l'attribut prétérit
-        self.partPass = ""  # Définition de l'attribut participe passé
+        self.infinitif = ""         # Définition de l'attribut infinitif
+        self.preterit = ""          # Définition de l'attribut prétérit
+        self.partPass = ""          # Définition de l'attribut participe passé
         self.champInfinitif = ""    # Définition de l'attribut champInfinitif
-        self.champPreterite = ""   # Définition de l'attribut champPreterite
-        self.champPartPass = ""   # Définition de l'attribut champPartPass
-        self.recupererVerbe() # Appel de la méthode récupérerVerbe
-        self.createWidgets() # Appel de la méthode createWidgets
-        self.randomVerbe() # Appel de la méthode randomVerbe
+        self.champPreterite = ""    # Définition de l'attribut champPreterite
+        self.champPartPass = ""     # Définition de l'attribut champPartPass
+        self.recupererVerbe()       # Appel de la méthode récupérerVerbe
+        self.createWidgets()        # Appel de la méthode createWidgets
+        self.randomVerbe()          # Appel de la méthode randomVerbe
 
     # Méthode pour créer les widgets
     def createWidgets(self):
@@ -46,17 +46,24 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
         self.champPartPass = tk.Entry(self, width=15, font=("Helvetica", 15))
         self.champPartPass.grid(row=30, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
         
-        boutonValider = tk.Button(self, width=15, text="Valider", font=("Helvetica", 15), command=lambda: self.verifierReponse(self.champInfinitif, self.champPreterite, self.champPartPass))
-        boutonValider.grid(row=35, column=1, columnspan=2, sticky=tk.NSEW, pady=20)
+        boutonValider = tk.Button(self, width=10, text="Valider", font=("Helvetica", 15), command=lambda: self.verifierReponse(self.champInfinitif, self.champPreterite, self.champPartPass), bg=self.colorBg)
+        boutonValider.grid(row=35, column=1, columnspan=1, sticky=tk.NSEW, pady=20)
         
-        quitterBoutton = tk.Button(self, text= "Quitter", width=15, command=self.confirmationQuitter)
-        quitterBoutton.grid(row=40, column=1, columnspan=2, sticky=tk.NSEW, pady=5)
+        cheatBoutton = tk.Button(self, width=3, text= "?", font=("Helvetica", 15), command=self.cheatBox, bg=self.colorBg)
+        cheatBoutton.grid(row=35, column=2, columnspan=1, sticky=tk.NSEW, pady=20)
+
+        quitterBoutton = tk.Button(self, text= "Quitter", width=15, command=self.confirmationQuitter,bg=self.colorBg)
+        quitterBoutton.grid(row=36, column=1, columnspan=2, sticky=tk.NSEW, pady=5)
 
     # Méthode pour confirmer la fermeture de l'application
     def confirmationQuitter(self):
         reponse = messagebox.askyesno('Quitter', 'Voulez-vous vraiment quitter ?') # Affichage d'une boîte de dialogue
         if reponse: # Si la réponse est oui
             self.master.quit() # Fermeture de l'application
+
+    # Méthode pour afficher les réponses
+    def cheatBox(self):
+        messagebox.showinfo("Cheat", "Infinitif:       " + self.infinitif + "\nPrétérit:       " + self.preterit + "\nPart. passé: " + self.partPass) # Affichage d'une boîte de dialogue
 
     # Méthode pour récupérer un verbe aléatoirement
     def recupererVerbe(self):
@@ -103,15 +110,12 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
 
         # Suppression du contenu des champs
         for widget in self.winfo_children():
-
             if isinstance(widget, tk.Entry):
-                widget.delete(0, END)  
-
+                widget.delete(0, END)
         self.randomVerbe() # Appel de la méthode pour afficher un verbe aléatoirement
 
     # Méthode pour vérifier la réponse
     def verifierReponse(self, champInfinitif, champPreterite, champPartPass):
-
         reponseInfinitif = str.lower(champInfinitif.get())
         reponsePreterite = str.lower(champPreterite.get())
         reponsePartPass = str.lower(champPartPass.get())
@@ -134,19 +138,15 @@ class PageJeu(tk.Frame): # Création de la classe PageJeu qui hérite de la clas
         else:
             self.parent.config(bg="red") 
             self.config(bg="red") 
-        
             for widget in self.winfo_children():
                 widget.configure(bg="red")
             self.after(1000, self.retablirCouleur)
     
     # Méthode pour rétablir la couleur de fond
     def retablirCouleur(self):
-    
         self.parent.config(bg=self.colorBg)
         self.config(bg=self.colorBg)
-    
         for widget in self.winfo_children():
             widget.configure(bg=self.colorBg)
-    
             if isinstance(widget, tk.Entry):
                 widget.configure(bg="white")
